@@ -46,7 +46,7 @@ while [ ${_peer_num} -le ${HLF_ORG_PEERS_COUNT} ]; do
     HLF_ORG_PEER_COUCHDB_USER=$(get_val HLF_ORG_PEER${_peer_num}_COUCHDB_USER)
     HLF_ORG_PEER_COUCHDB_PASSWD=$(get_val HLF_ORG_PEER${_peer_num}_COUCHDB_PASSWD)
     HLF_ORG_PEER_COUCHDB_PORT=$(get_val HLF_ORG_PEER${_peer_num}_COUCHDB_PORT)
-    curl --version >&/dev/null && curl -X PUT http://${HLF_ORG_PEER_COUCHDB_USER}:${HLF_ORG_PEER_COUCHDB_PASSWD}@localhost:${HLF_ORG_PEER_COUCHDB_PORT}/_users
+    curl --version >&/dev/null && curl -X PUT http://${HLF_ORG_PEER_COUCHDB_USER}:${HLF_ORG_PEER_COUCHDB_PASSWD}@${HLF_CA_HOST}:${HLF_ORG_PEER_COUCHDB_PORT}/_users
     let _peer_num=_peer_num+1
 done
 unset _peer_num
@@ -57,7 +57,7 @@ unset _peer_num
 
 HLF_ORG_ANCHOR_PEERS=$(echo ${HLF_ORG_ANCHOR_PEERS} | sed 's/,/ /g')
 _anchor_peers_list=""
-echo $HLF_ORG_ANCHOR_PEERS
+infoln "Anchor Peers: $HLF_ORG_ANCHOR_PEERS"
 for _peer_num_ in ${HLF_ORG_ANCHOR_PEERS}; do
     HLF_ORG_PEER_ID=$(get_val HLF_ORG_PEER${_peer_num_}_ID)
     HLF_ORG_PEER_PORT=$(get_val HLF_ORG_PEER${_peer_num_}_PORT)

@@ -4,7 +4,7 @@ _scripts_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 . $_scripts_dir/set_env
 
 function one_line_pem {
-    echo "$(awk 'NF {sub(/\\n/, ""); printf "%s\\\\\\\n",$0;}' $1)"
+    echo "`awk 'NF {sub(/\\n/, ""); printf "%s\\\\\\\n",$0;}' $1`"
 }
 
 function json_ccp {
@@ -18,6 +18,7 @@ function json_ccp {
         -e "s#PEER_ID#$PEER_ID#" \
         -e "s#PEER_PORT#$PEER_PORT#" \
         -e "s#CA_HOST#$CA_HOST#" \
+        -e "s#CA_NAME#$CA_NAME#" \
         $HLF_HOME/templates/ccp-template.json
 }
 

@@ -290,6 +290,7 @@ successln "------ ORG SETUP >>>> C O M P L E T E D -----------"
 print_header ">>>>> Generating Configtx >>>>>"
 mkdir -p $HLF_NETWORK_DIR/configtx $HLF_NETWORK_DIR/channel-artifacts $HLF_NETWORK_DIR/system-genesis-block
 #mkdir -p $HLF_NETWORK_DIR/config
+infoln "Parse configtx template ..."
 parse_template "$HLF_TEMPLATE_DIR/configtx.cfg" "$HLF_NETWORK_DIR/configtx/configtx.yaml"
 #cp $HLF_HOME/config/* $HLF_NETWORK_DIR/config/
 successln "------ CONFIGTX GENERATION >>>> C O M P L E T E D -----------"
@@ -301,5 +302,11 @@ successln "------ CONFIGTX GENERATION >>>> C O M P L E T E D -----------"
 print_header ">>>>> Generating CCP >>>>>"
 ${HLF_HOME}/scripts/ccp-generate.sh ${HLF_HOME}/network.conf
 successln "------ CCP GENERATION >>>> C O M P L E T E D -----------"
+
+## PostgreSQL
+print_header ">>>>> Generate PostgreSQL Docker-compose >>>>>"
+infoln "Parse postgres template ..."
+parse_template "$HLF_TEMPLATE_DIR/docker-compose-postgres.cfg" "$HLF_NETWORK_DIR/docker/docker-compose-postgres.yaml"
+successln "postgres docker-compose generated"
 
 ##--------------------------------------------
