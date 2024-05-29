@@ -28,9 +28,9 @@ test ! -f $_new_org_request_file && fatalln "New Org request file '$_new_org_req
 
 print_header ">>> Add New Org >>>" "New Org: $_new_org_id" "Request File: $_new_org_request_file"
 
-_channel_config="./channel-artifacts/channel_config.json"
-_modified_channel_config="./channel-artifacts/modified_channel_config.json"
-_update_config_tx="./channel-artifacts/update_config_tx.pb"
+_channel_config="$HLF_NETWORK_DIR/channel-artifacts/channel_config.json"
+_modified_channel_config="$HLF_NETWORK_DIR/channel-artifacts/modified_channel_config.json"
+_update_config_tx="$HLF_NETWORK_DIR/channel-artifacts/update_config_tx.pb"
 
 fetch_channel_config $_org_n $HLF_NETWORK_CHANNEL_ID $_channel_config
 jq -s ".[0] * {\"channel_group\":{\"groups\":{\"Application\":{\"groups\": {\"${_new_org_id}MSP\":.[1]}}}}}" $_channel_config $_new_org_request_file >$_modified_channel_config
